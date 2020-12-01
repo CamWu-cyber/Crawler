@@ -411,7 +411,7 @@
 
         if __name__ == '__main__':
             thread_list = []
-            # 第一个参数是线程函数变量，第二个参数args是一个数组变量参数，如果只传递一个值，就只需要i, 如果需要传递多个参数，那么还可以继续传递下去其他的参数，其     #中的逗号不能少，元组中只包含一个元素时，需要在元素后面添加逗号。
+            # 第一个参数是线程函数变量，第二个参数args是一个数组变量参数，如果只传递一个值，就只需要i, 如果需要传递多个参数，那么还可以继续传递下去其他的参数，其中的逗号不能少，元组中只包含一个元素时，需要在元素后面添加逗号。
             t1 = Thread(target=process_gimy, args=('https://gimy.co/cat/2-%E9%A6%99%E6%B8%AF-------1---2020.html',))
             t1.start()
             t2 = Thread(target=process_ifvod, args=('https://www.ifvod.tv/list?keyword=&star=&page=1&pageSize=30&cid=0,1,4,14&year=%E4%BB%8A%E5%B9%B4&language=-1&region=%E6%B8%AF%E5%8F%B0&status=-1&orderBy=0&desc=true',))
