@@ -342,3 +342,74 @@
 
     #关闭浏览器
     driver.quit()
+
+#### 5.wekan.py
+    from selenium import webdriver
+    import xlsxwriter
+    import time
+
+    driver = webdriver.Chrome('C:\\Users\\user\\Desktop\\AU\\chromedriver.exe')
+    #driver.maximize_window()
+    nextfather = "https://www.wekan.tv/filter-tvdrama-10037-2020-0-hot"
+    titles = []
+    urls = []
+
+    driver.get(nextfather)
+    time.sleep(10)
+    links = driver.find_elements_by_xpath("//ul[@class='poster-layout']/li/div/div/a")
+    fatherurls = []
+    for link in links:
+        fatherurls.append(link.get_attribute('href'))
+
+    file = open('C:\\Users\\user\\Desktop\\AU\\wekan\\error lists.txt', 'r', encoding='utf-8')
+    errorlines = file.readlines()
+
+    truesites = []
+    for i in range(len(fatherurls)):
+        boo = True
+        for j in range(len(errorlines)):
+            if errorlines[j].strip() == str(fatherurls[i]):
+                boo = False
+            else:
+                continue
+        if boo:
+            truesites.append(fatherurls[i])
+        else:
+            continue
+
+    episodes = []
+    for truesite in truesites:
+        episodes.clear()
+        driver.get(truesite)
+        time.sleep(5)
+        links = driver.find_elements_by_xpath("//ul[@class='select-part__part-list']/li/div/a")
+        for link in links:
+            episodes.append(link.get_attribute('href'))
+        #print(episodes)
+        for episode in episodes:
+            driver.get(episode)
+            time.sleep(5)
+            titles.append(driver.title)      #child's title
+            urls.append(driver.current_url)  #child's url
+
+    print("已经没有下一页了！")
+
+    everyday = time.strftime("%d%m%Y", time.localtime())
+    endfile='C:\\Users\\user\\Desktop\\AU\\wekan\\'+everyday+'.xlsx'
+    workbook = xlsxwriter.Workbook(endfile)
+    worksheet = workbook.add_worksheet('Sheet1')
+    keyword = '看tv-Kantv-华人首家在线视频分享网站'
+    worksheet.write(0, 0, 'Date')
+    worksheet.write(0, 1, 'Keywords')
+    worksheet.write(0, 2, 'title')
+    worksheet.write(0, 3, 'url')
+    for i in range(1, len(titles)+1):
+        worksheet.write(i, 0, time.strftime("%d/%m/%Y %H:%M %p", time.localtime()))
+        worksheet.write(i, 1, keyword)
+        worksheet.write(i, 2, titles[i-1])
+        worksheet.write(i, 3, urls[i-1])
+
+    workbook.close()
+
+    #关闭浏览器
+    driver.quit()
