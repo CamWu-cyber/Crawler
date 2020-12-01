@@ -4,4 +4,4 @@
 
 解决：把www.facebook.com/balabala中的www改成mbasic.facebook.com/balabala. 据说mbasic打开的是original version of Facebook. 显示出的界面就是比较原始版本的样子，所有动态渲染的效果都没有了，用户列表也可以直接显示，不想要滚动加载。 直接使用xpath定位就能爬取数据啦~
 
-PS: 如果mbasic不管用了，改用m.facebook.com/balabala
+PS: 如果mbasic不管用了，改用m
